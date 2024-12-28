@@ -6,132 +6,6 @@
     <title>Rising Point Academy</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Mobile Navigation */
-.mobile-nav-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-color);
-    padding: 0.5rem;
-}
-
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-    /* Navigation */
-    .mobile-nav-toggle {
-        display: block;
-    }
-
-    .nav-links {
-        display: none;
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        background: white;
-        flex-direction: column;
-        padding: 1rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links a {
-        padding: 1rem;
-        text-align: center;
-        border-bottom: 1px solid #eee;
-    }
-
-    /* Hero Section */
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-        padding: 0 1rem;
-    }
-
-    /* Sections Padding */
-    section {
-        padding: 3rem 1rem;
-    }
-
-    /* About Section */
-    .about-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .about-image {
-        order: -1;
-        margin-bottom: 2rem;
-    }
-
-    /* Facilities Grid */
-    .facilities-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    /* Courses Grid */
-    .courses-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    /* Testimonial Cards */
-    .testimonial-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 1rem;
-    }
-
-    .testimonial-image {
-        margin: 0 auto 1rem auto;
-    }
-
-    /* Contact Section */
-    .contact-content {
-        grid-template-columns: 1fr;
-    }
-
-    /* Fee Table */
-    .fee-table {
-        font-size: 0.9rem;
-    }
-
-    .fee-table th, .fee-table td {
-        padding: 0.5rem;
-    }
-
-    /* Form Elements */
-    .form-group input,
-    .form-group textarea {
-        padding: 0.8rem;
-    }
-}
-
-/* Small Mobile Devices */
-@media screen and (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 1.75rem;
-    }
-
-    .section-title h2 {
-        font-size: 2rem;
-    }
-
-    .facility-card,
-    .course-card,
-    .testimonial-card {
-        margin: 0.5rem;
-    }
-}
         * {
             margin: 0;
             padding: 0;
@@ -143,6 +17,7 @@
             --primary-red: #FF0000;
             --primary-yellow: #FFD700;
             --text-color: #333;
+            --sidebar-width: 250px;
         }
 
         /* Navbar Styles */
@@ -163,6 +38,16 @@
             height: 50px;
         }
 
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            z-index: 1002;
+        }
+
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -177,6 +62,47 @@
 
         .nav-links a:hover {
             color: var(--primary-red);
+        }
+
+        /* Mobile Navigation */
+        @media screen and (max-width: 768px) {
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: flex;
+                position: fixed;
+                top: 0;
+                right: -var(--sidebar-width);
+                width: var(--sidebar-width);
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                padding: 80px 2rem 2rem 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease-in-out;
+                box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+                z-index: 999;
+            }
+
+            .overlay.active {
+                display: block;
+            }
         }
 
         /* Hero Section */
@@ -444,10 +370,6 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
             .about-content {
                 flex-direction: column;
             }
@@ -459,16 +381,24 @@
             .hero-content p {
                 font-size: 1.2rem;
             }
+
+            .testimonial-card {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <button class="mobile-nav-toggle">
-        <i class="fas fa-bars"></i>
-    </button>
-    <!-- Navbar -->
+    <!-- Overlay for mobile sidebar -->
+    <div class="overlay"></div>
+
+    <!-- Navigation -->
     <nav class="navbar">
         <img src="/api/placeholder/150/50" alt="Rising Point Academy Logo" class="logo">
+        <button class="mobile-nav-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#about">About</a>
@@ -605,148 +535,150 @@
     </section>
 
     <!-- Testimonials Section -->
-<section id="testimonials">
-    <div class="section-title">
-        <h2>Student Testimonials</h2>
-    </div>
-    <div class="testimonials-slider">
-        <div class="testimonial-card">
-            <div class="testimonial-image">
-                <img src="/api/placeholder/150/150" alt="Student 1">
-            </div>
-            <div class="testimonial-content">
-                <h3>Rahul Kumar</h3>
-                <p>Class 12th Student</p>
-                <p>"The teaching methodology at Rising Point Academy is exceptional. Thanks to the dedicated faculty, I scored 95% in my board exams and qualified for JEE Advanced with a great rank."</p>
-            </div>
+    <section id="testimonials">
+        <div class="section-title">
+            <h2>Student Testimonials</h2>
         </div>
-        <div class="testimonial-card">
-            <div class="testimonial-image">
-                <img src="/api/placeholder/150/150" alt="Student 2">
-            </div>
-            <div class="testimonial-content">
-                <h3>Priya Sharma</h3>
-                <p>Class 10th Student</p>
-                <p>"The small batch size really helped me get personal attention. The daily practice sheets and doubt clearing sessions made complex topics easy to understand."</p>
-            </div>
-        </div>
-        <div class="testimonial-card">
-            <div class="testimonial-image">
-                <img src="/api/placeholder/150/150" alt="Student 3">
-            </div>
-            <div class="testimonial-content">
-                <h3>Amit Patel</h3>
-                <p>Class 11th Student</p>
-                <p>"The faculty here not only focuses on academic excellence but also on building a strong foundation. The study material provided is comprehensive and well-structured."</p>
-            </div>
-        </div>
-        <div class="testimonial-card">
-            <div class="testimonial-image">
-                <img src="/api/placeholder/150/150" alt="Student 4">
-            </div>
-            <div class="testimonial-content">
-                <h3>Neha Gupta</h3>
-                <p>Class 12th Student</p>
-                <p>"Rising Point Academy has been instrumental in my JEE preparation. The practice tests and performance analysis helped me identify and work on my weak areas."</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section id="contact">
-    <div class="section-title">
-        <h2>Contact Us</h2>
-    </div>
-    <div class="contact-content">
-        <div class="contact-info">
-            <h3>Get in Touch</h3>
-            <p><i class="fas fa-map-marker-alt"></i> Rising Point Academy</p>
-            <p>Malviya Nagar, South Delhi</p>
-            <p>New Delhi, India</p>
-            <p><i class="fas fa-phone"></i> +91 XXXXXXXXXX</p>
-            <p><i class="fas fa-envelope"></i> info@risingpointacademy.com</p>
-        </div>
-        <div class="contact-form">
-            <h3>Send us a Message</h3>
-            <form>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
+        <div class="testimonials-slider">
+            <div class="testimonial-card">
+                <div class="testimonial-image">
+                    <img src="/api/placeholder/150/150" alt="Student 1">
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                <div class="testimonial-content">
+                    <h3>Rahul Kumar</h3>
+                    <p>Class 12th Student</p>
+                    <p>"The teaching methodology at Rising Point Academy is exceptional. Thanks to the dedicated faculty, I scored 95% in my board exams and qualified for JEE Advanced with a great rank."</p>
                 </div>
-                <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-image">
+                    <img src="/api/placeholder/150/150" alt="Student 2">
                 </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
+                <div class="testimonial-content">
+                    <h3>Priya Sharma</h3>
+                    <p>Class 10th Student</p>
+                    <p>"The small batch size really helped me get personal attention. The daily practice sheets and doubt clearing sessions made complex topics easy to understand."</p>
                 </div>
-                <button type="submit" class="submit-button">Send Message</button>
-            </form>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-image">
+                    <img src="/api/placeholder/150/150" alt="Student 3">
+                </div>
+                <div class="testimonial-content">
+                    <h3>Amit Patel</h3>
+                    <p>Class 11th Student</p>
+                    <p>"The faculty here not only focuses on academic excellence but also on building a strong foundation. The study material provided is comprehensive and well-structured."</p>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Footer -->
-<footer>
-    <p>&copy; 2024 Rising Point Academy. All rights reserved.</p>
-</footer>
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+        </div>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Rising Point Academy</p>
+                <p>Malviya Nagar, South Delhi</p>
+                <p>New Delhi, India</p>
+                <p><i class="fas fa-phone"></i> +91 XXXXXXXXXX</p>
+                <p><i class="fas fa-envelope"></i> info@risingpointacademy.com</p>
+            </div>
+            <div class="contact-form">
+                <h3>Send us a Message</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-<!-- Add JavaScript for testimonial slider -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.testimonial-card');
-        const totalSlides = slides.length;
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Rising Point Academy. All rights reserved.</p>
+    </footer>
 
-        function showSlide(index) {
-            slides.forEach(slide => slide.style.display = 'none');
-            slides[index].style.display = 'flex';
-        }
+    <!-- JavaScript for Testimonials Slider and Mobile Navigation -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const overlay = document.querySelector('.overlay');
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            showSlide(currentSlide);
-        }
-
-        // Initialize slider
-        showSlide(currentSlide);
-        // Auto advance slides every 5 seconds
-        setInterval(nextSlide, 5000);
-    });
-</script>
-<script>
-    // Mobile Navigation Toggle
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    mobileNavToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        const icon = mobileNavToggle.querySelector('i');
-        if (navLinks.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
-    });
-
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
+        function toggleNav() {
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
             const icon = mobileNavToggle.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when sidebar is open
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        }
+
+        mobileNavToggle.addEventListener('click', toggleNav);
+        overlay.addEventListener('click', toggleNav);
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    toggleNav();
+                }
+            });
         });
-    });
-</script>
+
+        // Close sidebar when window is resized above mobile breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                toggleNav();
+            }
+        });
+
+        // Testimonials Slider
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.testimonial-card');
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.style.display = 'none');
+                slides[index].style.display = 'flex';
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                showSlide(currentSlide);
+            }
+
+            // Initialize slider
+            showSlide(currentSlide);
+            // Auto advance slides every 5 seconds
+            setInterval(nextSlide, 5000);
+        });
+    </script>
 </body>
 </html>
-
