@@ -81,16 +81,36 @@
         gap: 1rem;
     }
 
-    /* Testimonial Cards */
     .testimonial-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 1rem;
-    }
+    display: flex; /* Align icon and content side by side */
+    align-items: center; /* Vertically align icon and content */
+    text-align: left; /* Align content text to the left */
+    padding: 0.5rem;
+    height: 200px; /* Set a fixed height */
+    gap: 1rem; /* Add space between the icon and content */
+    background-color: #f9f9f9; /* Optional: Add a background for better visibility */
+    border: 1px solid #ddd; /* Optional: Add a border for structure */
+    border-radius: 8px; /* Optional: Add rounded corners */
+}
 
-    .testimonial-image {
-        margin: 0 auto 1rem auto;
-    }
+.testimonial-icon {
+    flex-shrink: 0; /* Prevent the icon from shrinking */
+    width: 50px; /* Set a fixed size for the icon */
+    height: 50px; /* Keep the icon square */
+    background-color: #007BFF; /* Optional: Background color for the icon */
+    border-radius: 50%; /* Optional: Make the icon circular */
+    display: flex; /* Center align the icon content */
+    align-items: center;
+    justify-content: center;
+    color: white; /* Icon color */
+    font-size: 24px; /* Icon font size */
+}
+
+.testimonial-content {
+    flex: 1; /* Allow content to take the remaining space */
+}
+
+
 
     /* Contact Section */
     .contact-content {
@@ -177,18 +197,18 @@
 
         /* Hero Section */
         .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1920/1080');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            padding-top: 60px;
-        }
-
+    height: 100vh;
+    /* Change the URL below to your actual image URL */
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.pinimg.com/736x/c7/a3/c8/c7a3c88fd7e1cf3ccb60370b00948f14.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding-top: 60px;
+}
         .hero-content h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
@@ -305,21 +325,24 @@
             overflow: hidden;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
             transition: transform 0.3s;
+            text-align: center;
+            padding: 2rem;
         }
 
         .course-card:hover {
             transform: translateY(-5px);
         }
 
-        .course-image {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
+        .course-icon {
+            font-size: 4rem;
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
         }
 
         .course-content {
-            padding: 2rem;
+            padding: 1rem;
         }
+
 
         /* Admission Section */
         .admission-content {
@@ -475,12 +498,12 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>Welcome to Rising Point Academy</h1>
             <p>Nurturing Excellence in Science and Mathematics</p>
-            <button class="cta-button">Join Us Today</button>
+            <button class="cta-button" onclick="window.open('https://forms.gle/YOUR-FORM-URL', '_blank')">Join Us Today</button>
         </div>
     </section>
 
@@ -491,11 +514,12 @@
         </div>
         <div class="about-content">
             <div class="about-text">
-                <p>Rising Point Academy, located in Malviya Nagar, South Delhi, is a premier coaching institute dedicated to excellence in Science and Mathematics education. Founded by Mr. Hari Prakash Shrivastav, a distinguished postgraduate in Mathematics from DDU Gorakhpur University, our institute represents the culmination of academic excellence and innovative teaching methodologies.</p>
-                <p>Mr. Shrivastav, after a successful stint in the industry, followed his passion for teaching and established Rising Point Academy. His vision of creating an institute that not only imparts knowledge but also builds character has been the driving force behind our success.</p>
+                <p>Rising Point Academy, located in Malviya Nagar, South Delhi, is a premier coaching institute dedicated to excellence in Science and Mathematics education. Founded by Mr. Hari Prakash Srivastav, a distinguished postgraduate in Mathematics from DDU Gorakhpur University, our institute represents the culmination of academic excellence and innovative teaching methodologies.</p>
+                <p>Mr. Srivastav, after a successful stint in the industry, followed his passion for teaching and established Rising Point Academy. His vision of creating an institute that not only imparts knowledge but also builds character has been the driving force behind our success.</p>
             </div>
             <div class="about-image">
-                <img src="/api/placeholder/400/300" alt="About Rising Point Academy">
+                <img src="pic" alt="About Rising Point Academy">
+
             </div>
         </div>
     </section>
@@ -529,28 +553,28 @@
         </div>
     </section>
 
-    <!-- Courses Section -->
+    <!-- Modified Courses Section -->
     <section id="courses">
         <div class="section-title">
             <h2>Our Courses</h2>
         </div>
         <div class="courses-grid">
             <div class="course-card">
-                <div class="course-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                <i class="fas fa-school course-icon"></i>
                 <div class="course-content">
                     <h3>Class 9th & 10th</h3>
                     <p>Mathematics and Science for all boards</p>
                 </div>
             </div>
             <div class="course-card">
-                <div class="course-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                <i class="fas fa-atom course-icon"></i>
                 <div class="course-content">
                     <h3>Class 11th & 12th</h3>
                     <p>Physics, Chemistry, and Mathematics</p>
                 </div>
             </div>
             <div class="course-card">
-                <div class="course-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                <i class="fas fa-laptop-code course-icon"></i>
                 <div class="course-content">
                     <h3>JEE Preparation</h3>
                     <p>Comprehensive preparation for JEE exams</p>
@@ -558,6 +582,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Admission Section -->
     <section id="admission">
@@ -606,8 +631,8 @@
     </div>
     <div class="testimonials-slider">
         <div class="testimonial-card">
-            <div class="testimonial-image">
-                <img src="/api/placeholder/150/150" alt="Student 1">
+            <div class="testimonial-icon">
+                <i class="fa fa-user"></i> <!-- Use an appropriate icon -->
             </div>
             <div class="testimonial-content">
                 <h3>Rahul Kumar</h3>
@@ -616,8 +641,8 @@
             </div>
         </div>
         <div class="testimonial-card">
-            <div class="testimonial-image">
-                <img src="/api/placeholder/150/150" alt="Student 2">
+            <div class="testimonial-icon">
+                <i class="fa fa-user"></i>
             </div>
             <div class="testimonial-content">
                 <h3>Priya Sharma</h3>
@@ -626,8 +651,8 @@
             </div>
         </div>
         <div class="testimonial-card">
-            <div class="testimonial-image">
-                <img src="/api/placeholder/150/150" alt="Student 3">
+            <div class="testimonial-icon">
+                <i class="fa fa-user"></i>
             </div>
             <div class="testimonial-content">
                 <h3>Amit Patel</h3>
@@ -636,8 +661,8 @@
             </div>
         </div>
         <div class="testimonial-card">
-            <div class="testimonial-image">
-                <img src="/api/placeholder/150/150" alt="Student 4">
+            <div class="testimonial-icon">
+                <i class="fa fa-user"></i>
             </div>
             <div class="testimonial-content">
                 <h3>Neha Gupta</h3>
@@ -647,6 +672,7 @@
         </div>
     </div>
 </section>
+
 
 <!-- Contact Section -->
 <section id="contact">
