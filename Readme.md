@@ -2,7 +2,7 @@
 
 ## Student Information
 **Position:** Web Development and Business Strategy Intern  
-**Duration:** June-Juky 2024  
+**Duration:** June-July 2024  
 **Location:** Malviya Nagar, South Delhi, India  
 
 ## About the Company
