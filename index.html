@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rising Point Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Mobile Navigation */
+.mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 0.5rem;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    /* Navigation */
+    .mobile-nav-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 1rem;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Hero Section */
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    /* Sections Padding */
+    section {
+        padding: 3rem 1rem;
+    }
+
+    /* About Section */
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image {
+        order: -1;
+        margin-bottom: 2rem;
+    }
+
+    /* Facilities Grid */
+    .facilities-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Courses Grid */
+    .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Testimonial Cards */
+    .testimonial-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .testimonial-image {
+        margin: 0 auto 1rem auto;
+    }
+
+    /* Contact Section */
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+
+    /* Fee Table */
+    .fee-table {
+        font-size: 0.9rem;
+    }
+
+    .fee-table th, .fee-table td {
+        padding: 0.5rem;
+    }
+
+    /* Form Elements */
+    .form-group input,
+    .form-group textarea {
+        padding: 0.8rem;
+    }
+}
+
+/* Small Mobile Devices */
+@media screen and (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 1.75rem;
+    }
+
+    .section-title h2 {
+        font-size: 2rem;
+    }
+
+    .facility-card,
+    .course-card,
+    .testimonial-card {
+        margin: 0.5rem;
+    }
+}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --primary-red: #FF0000;
+            --primary-yellow: #FFD700;
+            --text-color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: darkred;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-color);
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: var(--primary-red);
+            margin: 1rem auto;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Facilities Section */
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .facility-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .facility-card i {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        /* Courses Section */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .course-content {
+            padding: 2rem;
+        }
+
+        /* Admission Section */
+        .admission-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .fee-table th, .fee-table td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .fee-table th {
+            background-color: var(--primary-red);
+            color: white;
+        }
+
+        /* Testimonials Section */
+        .testimonials-slider {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin: 1rem;
+        }
+
+        .testimonial-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .testimonial-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .contact-form {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .submit-button {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: darkred;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-nav-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="/api/placeholder/150/50" alt="Rising Point Academy Logo" class="logo">
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#facilities">Facilities</a>
+            <a href="#courses">Courses</a>
+            <a href="#admission">Admission</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Rising Point Academy</h1>
+            <p>Nurturing Excellence in Science and Mathematics</p>
+            <button class="cta-button">Join Us Today</button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-title">
+            <h2>About Us</h2>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Rising Point Academy, located in Malviya Nagar, South Delhi, is a premier coaching institute dedicated to excellence in Science and Mathematics education. Founded by Mr. Hari Prakash Shrivastav, a distinguished postgraduate in Mathematics from DDU Gorakhpur University, our institute represents the culmination of academic excellence and innovative teaching methodologies.</p>
+                <p>Mr. Shrivastav, after a successful stint in the industry, followed his passion for teaching and established Rising Point Academy. His vision of creating an institute that not only imparts knowledge but also builds character has been the driving force behind our success.</p>
+            </div>
+            <div class="about-image">
+                <img src="/api/placeholder/400/300" alt="About Rising Point Academy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section id="facilities">
+        <div class="section-title">
+            <h2>Our Facilities</h2>
+        </div>
+        <div class="facilities-grid">
+            <div class="facility-card">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <h3>Expert Faculty</h3>
+                <p>Best teachers in Delhi for Science and Mathematics</p>
+            </div>
+            <div class="facility-card">
+                <i class="fas fa-users"></i>
+                <h3>Small Batch Size</h3>
+                <p>Personalized attention with limited students per batch</p>
+            </div>
+            <div class="facility-card">
+                <i class="fas fa-book"></i>
+                <h3>Study Material</h3>
+                <p>Comprehensive notes, daily assignments, and formula sheets</p>
+            </div>
+            <div class="facility-card">
+                <i class="fas fa-question-circle"></i>
+                <h3>Doubt Sessions</h3>
+                <p>Regular doubt clearing sessions for better understanding</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses">
+        <div class="section-title">
+            <h2>Our Courses</h2>
+        </div>
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                <div class="course-content">
+                    <h3>Class 9th & 10th</h3>
+                    <p>Mathematics and Science for all boards</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                <div class="course-content">
+                    <h3>Class 11th & 12th</h3>
+                    <p>Physics, Chemistry, and Mathematics</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                <div class="course-content">
+                    <h3>JEE Preparation</h3>
+                    <p>Comprehensive preparation for JEE exams</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admission Section -->
+    <section id="admission">
+        <div class="section-title">
+            <h2>Admission</h2>
+        </div>
+        <div class="admission-content">
+            <table class="fee-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Duration</th>
+                        <th>Fees (per subject)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>9th & 10th</td>
+                        <td>1 Year</td>
+                        <td>₹10,000</td>
+                    </tr>
+                    <tr>
+                        <td>9th & 10th</td>
+                        <td>6 Months</td>
+                        <td>₹5,000</td>
+                    </tr>
+                    <tr>
+                        <td>11th & 12th</td>
+                        <td>1 Year</td>
+                        <td>₹15,000</td>
+                    </tr>
+                    <tr>
+                        <td>11th & 12th</td>
+                        <td>6 Months</td>
+                        <td>₹7,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+<section id="testimonials">
+    <div class="section-title">
+        <h2>Student Testimonials</h2>
+    </div>
+    <div class="testimonials-slider">
+        <div class="testimonial-card">
+            <div class="testimonial-image">
+                <img src="/api/placeholder/150/150" alt="Student 1">
+            </div>
+            <div class="testimonial-content">
+                <h3>Rahul Kumar</h3>
+                <p>Class 12th Student</p>
+                <p>"The teaching methodology at Rising Point Academy is exceptional. Thanks to the dedicated faculty, I scored 95% in my board exams and qualified for JEE Advanced with a great rank."</p>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <div class="testimonial-image">
+                <img src="/api/placeholder/150/150" alt="Student 2">
+            </div>
+            <div class="testimonial-content">
+                <h3>Priya Sharma</h3>
+                <p>Class 10th Student</p>
+                <p>"The small batch size really helped me get personal attention. The daily practice sheets and doubt clearing sessions made complex topics easy to understand."</p>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <div class="testimonial-image">
+                <img src="/api/placeholder/150/150" alt="Student 3">
+            </div>
+            <div class="testimonial-content">
+                <h3>Amit Patel</h3>
+                <p>Class 11th Student</p>
+                <p>"The faculty here not only focuses on academic excellence but also on building a strong foundation. The study material provided is comprehensive and well-structured."</p>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <div class="testimonial-image">
+                <img src="/api/placeholder/150/150" alt="Student 4">
+            </div>
+            <div class="testimonial-content">
+                <h3>Neha Gupta</h3>
+                <p>Class 12th Student</p>
+                <p>"Rising Point Academy has been instrumental in my JEE preparation. The practice tests and performance analysis helped me identify and work on my weak areas."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+    <div class="section-title">
+        <h2>Contact Us</h2>
+    </div>
+    <div class="contact-content">
+        <div class="contact-info">
+            <h3>Get in Touch</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Rising Point Academy</p>
+            <p>Malviya Nagar, South Delhi</p>
+            <p>New Delhi, India</p>
+            <p><i class="fas fa-phone"></i> +91 XXXXXXXXXX</p>
+            <p><i class="fas fa-envelope"></i> info@risingpointacademy.com</p>
+        </div>
+        <div class="contact-form">
+            <h3>Send us a Message</h3>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Rising Point Academy. All rights reserved.</p>
+</footer>
+
+<!-- Add JavaScript for testimonial slider -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.testimonial-card');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.style.display = 'none');
+            slides[index].style.display = 'flex';
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Initialize slider
+        showSlide(currentSlide);
+        // Auto advance slides every 5 seconds
+        setInterval(nextSlide, 5000);
+    });
+</script>
+<script>
+    // Mobile Navigation Toggle
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileNavToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const icon = mobileNavToggle.querySelector('i');
+        if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            const icon = mobileNavToggle.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+    });
+</script>
+</body>
+</html>
+
