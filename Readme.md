@@ -6,7 +6,7 @@
 **Location:** Malviya Nagar, South Delhi, India  
 
 ## About the Company
-Rising Point Academy is a premier coaching institute located in Malviya Nagar, South Delhi, specializing in Science and Mathematics education. Founded by Mr. Hari Prakash Srivastav, a Mathematics postgraduate from DDU Gorakhpur University, the academy focuses on providing quality education to students from classes 9th through 12th, including JEE preparation.
+Rising Point Academy is a premier education institute located in Malviya Nagar, South Delhi, specializing in Science and Mathematics education. Founded by Mr. Hari Prakash Srivastav, a Mathematics postgraduate from DDU Gorakhpur University, the academy focuses on providing quality education to students from classes 9th through 12th, including JEE preparation.
 
 ## Job Profile and Responsibilities
 
